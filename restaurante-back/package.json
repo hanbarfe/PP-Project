@@ -1,0 +1,41 @@
+{
+  "name": "restaurante-back",
+  "version": "1.0.0",
+  "description": "API criada para fins didáticos na cadeira de Práticas de Programação no curso de Sistemas da Informação na UNIFACISA.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node .",
+    "prod": "NODE_ENV=production && node ./src/server",
+    "dev": "nodemon .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanbarfe/restaurante-back.git"
+  },
+  "keywords": [
+    "Node",
+    "Javascript",
+    "MongoDB",
+    "Express"
+  ],
+  "author": "Haniel Barros",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanbarfe/restaurante-back/issues"
+  },
+  "homepage": "https://github.com/hanbarfe/restaurante-back#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.4",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "socketio": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
