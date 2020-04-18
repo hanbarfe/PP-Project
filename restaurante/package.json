@@ -19,7 +19,20 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hanbarfe/PP-Project.git"
+  },
+  "keywords": [
+    "React",
+    "Javascript"
+  ],
   "author": "Haniel Barros",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanbarfe/PP-Project/issues"
+  },
+  "homepage": "https://github.com/hanbarfe/PP-Project#readme",
   "eslintConfig": {
     "extends": "react-app"
   },

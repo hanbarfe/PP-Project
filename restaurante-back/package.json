@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hanbarfe/restaurante-back.git"
+    "url": "https://github.com/hanbarfe/PP-Project.git"
   },
   "keywords": [
     "Node",
@@ -22,9 +22,9 @@
   "author": "Haniel Barros",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hanbarfe/restaurante-back/issues"
+    "url": "https://github.com/hanbarfe/PP-Project/issues"
   },
-  "homepage": "https://github.com/hanbarfe/restaurante-back#readme",
+  "homepage": "https://github.com/hanbarfe/PP-Project#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
