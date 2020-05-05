@@ -28,7 +28,7 @@ function App() {
     });
     return () => {
       socket.close();
-    }
+    };
   }, []);
 
   const refreshOrders = () => {
@@ -38,17 +38,19 @@ function App() {
   };
 
   const pedir = (product) => {
-    axios
-      .post(`${url}:${port}/api/v1/orders/${product._id}`)
-      .then((order) => {
-        setOrders([...orders, order.data]);
-      });
+    axios.post(`${url}:${port}/api/v1/orders/${product._id}`).then((order) => {
+      setOrders([...orders, order.data]);
+    });
     calculaTotal(product.value);
   };
 
   const cancelarPedido = (index) => {
-    if(index.status === "NA_FILA") {
-      setOrders(orders.filter((order) => order._id !== index._id));
+    if (index.status === "NA_FILA") {
+      axios
+        .delete(`${url}:${port}/api/v1/orders/${index._id}`)
+        .then((order) => {
+          setOrders(orders.filter((order) => order._id !== index._id));
+        });
       setTotal(total - index.value);
     } else {
       alert("Impossivel cancelar pedido");
@@ -69,7 +71,9 @@ function App() {
           value={product.value}
           photo={product.photo}
           funcao={() => pedir(product)}
-        >Pedir</Card>
+        >
+          Pedir
+        </Card>
       );
     });
   };
@@ -85,7 +89,9 @@ function App() {
           status={order.status}
           photo={order.photo}
           funcao={() => cancelarPedido(order)}
-        >Cancelar</CardCart>
+        >
+          Cancelar
+        </CardCart>
       );
     });
   };

@@ -50,3 +50,10 @@ exports.ordersStatus = (req, res, next) => {
       next();
     });
 };
+
+exports.deleteOrder = (req, res) => {
+  Order.findByIdAndDelete(req.params.id)
+    .exec()
+    .then((order) => res.status(200).send("Order deleted"))
+    .catch((err) => res.status(404).send("Order doesn't exists"));
+};
