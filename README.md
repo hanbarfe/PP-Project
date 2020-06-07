@@ -1,5 +1,5 @@
 # PP-Project
-Project for a discipline called Práticas de Programação on University UNIFACISA. Project using React and NodeJS(Express) with SocketIo and MongoDB.
+Project for a discipline called Práticas de Programação on University UNIFACISA. Project using React with Redux and NodeJS(Express) and MongoDB.
 
 ## Requirements
 
@@ -32,4 +32,4 @@ Project for a discipline called Práticas de Programação on University UNIFACI
 * POST/GET `http://url:port/api/v1/products` -> Receives or create a product
 * GET `http://url:port/api/v1/products/ID` -> Receives a product
 * GET `http://url:port/api/v1/orders`   -> Receives all orders
-* GET `http://url:port/api/v1/kitchen`  -> Refresh the status of all orders
+* PUT `http://url:port/api/v1/kitchen`  -> Refresh the status of all orders
