@@ -1,106 +1,35 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import socketIOClient from "socket.io-client";
+import React from "react";
 import "./App.css";
-import Card from "./components/molecules/Card";
-import CardCart from "./components/molecules/CardCart";
-import Dashboard from "./components/organisms/Dashboard";
-import ShoppingCart from "./components/organisms/ShoppingCart";
-const url = process.env.REACT_APP_HOST_IP_ADDRESS;
-const port = process.env.REACT_APP_HOST_PORT;
+import axios from "axios";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import Landing from "./components/layout/Landing";
+import Products from "./components/product/Products";
+import Orders from "./components/order/Orders";
+
+import PrivateRoute from "./components/common/PrivateRoute";
+
+import env from "./environment";
+
+axios.defaults.baseURL = env.API_URL;
+console.log(`Running at ${env.NAME} with ${env.API_URL}`);
 
 function App() {
-  const [products, setProducts] = useState([]);
-  const [orders, setOrders] = useState([]);
-  const [total, setTotal] = useState(0);
-
-  useEffect(() => {
-    axios.get(`${url}:${port}/api/v1/products/`).then((prods) => {
-      setProducts(prods.data);
-    });
-  }, []);
-
-  useEffect(() => {
-    const socket = socketIOClient(`${url}:${port}`);
-    socket.on("kitchen", (msg) => {
-      console.log(msg);
-      refreshOrders();
-    });
-    return () => {
-      socket.close();
-    };
-  }, []);
-
-  const refreshOrders = () => {
-    axios.get(`${url}:${port}/api/v1/orders/`).then((ods) => {
-      setOrders(ods.data);
-    });
-  };
-
-  const pedir = (product) => {
-    axios.post(`${url}:${port}/api/v1/orders/${product._id}`).then((order) => {
-      setOrders([...orders, order.data]);
-    });
-    calculaTotal(product.value);
-  };
-
-  const cancelarPedido = (index) => {
-    if (index.status === "NA_FILA") {
-      axios
-        .delete(`${url}:${port}/api/v1/orders/${index._id}`)
-        .then((order) => {
-          setOrders(orders.filter((order) => order._id !== index._id));
-        });
-      setTotal(total - index.value);
-    } else {
-      alert("Impossivel cancelar pedido");
-    }
-  };
-
-  const calculaTotal = (obj) => {
-    setTotal(total + obj);
-  };
-
-  const renderProduct = () => {
-    return products.map((product) => {
-      return (
-        <Card
-          key={product._id}
-          name={product.name}
-          type={product.type}
-          value={product.value}
-          photo={product.photo}
-          funcao={() => pedir(product)}
-        >
-          Pedir
-        </Card>
-      );
-    });
-  };
-
-  const renderOrder = () => {
-    return orders.map((order) => {
-      return (
-        <CardCart
-          key={order._id}
-          name={order.name}
-          type={order.type}
-          value={order.value}
-          status={order.status}
-          photo={order.photo}
-          funcao={() => cancelarPedido(order)}
-        >
-          Cancelar
-        </CardCart>
-      );
-    });
-  };
-
   return (
-    <>
-      <ShoppingCart total={total}>{() => renderOrder()}</ShoppingCart>
-      <Dashboard>{renderProduct()}</Dashboard>;
-    </>
+    <Provider store={store}>
+      <Router>
+        <Route exact path="/" component={Landing} />
+        <Switch>
+          <PrivateRoute
+            exact
+            path="/dashboard"
+            component={Products}
+          ></PrivateRoute>
+          <PrivateRoute exact path="/orders" component={Orders}></PrivateRoute>
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 
